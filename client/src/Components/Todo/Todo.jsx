@@ -37,7 +37,7 @@ function Todo() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json(); // Modtager den oprettede opgave fra serveren
+                const data = await response.json(); // get the new task from the server
 
                 // update the task-list with the new task (inclusive id and isComplete)lete
                 setTask([...task, data]);
@@ -57,13 +57,15 @@ function Todo() {
             <div className="todo__list">
                 <ul>{listTasks()}</ul>
             </div>
-            <input
-                type="text"
-                placeholder="Add a new task"
-                value={newTask}
-                onChange={(e) => setNewTask(e.target.value)}
-            />
-            <button onClick={addTask}>Add task</button>
+            <div className="todo__add-task">
+                <input
+                    type="text"
+                    placeholder="Add a new task"
+                    value={newTask}
+                    onChange={(e) => setNewTask(e.target.value)}
+                />
+                <button onClick={addTask}>Add task</button>
+            </div>
         </div>
     );
 }
