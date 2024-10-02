@@ -13,11 +13,20 @@ const tasks = [];
 
 // GET: fetch all tasks
 app.get("/api/tasks", (req, res) => {
+    // console.log(tasks);
+    // also a way to log the added task
+    // i use following for better logging:
+    console.log(`Tasks: ${JSON.stringify(tasks)}`); // log tasks as JSON string
     res.json(tasks);
 });
 
 // POST: add a new task
-app.post("/api/tasks", (req, res) => {
+app.post("/api/addTask", (req, res) => {
+    // logging the incomming task
+    // console.log(req.body); // also a way to log the added task
+    // i use following for better logging:
+    console.log(`A new task is added: ${JSON.stringify(req.body)}`);
+
     const newTask = {
         id: tasks.length + 1,
         task: req.body.task,
@@ -30,6 +39,34 @@ app.post("/api/tasks", (req, res) => {
 // PUT: update a task (marks as complete/incomplete)
 
 // DELETE: remove a task
+app.delete("/api/tasks/:id", (req, res) => {
+    // logging ID to be deleted
+    console.log(`ID to delete: ${req.params.id}`);
+
+    // converting the string id from the request into a base-10 integer (decimal)
+    const id = parseInt(req.params.id, 10);
+
+    // searches the tasks array for a task with the matching id from the request
+    const deleteTask = tasks.find((el) => el.id === id);
+
+    // handles the case where no task with the provided id is found
+    if (!deleteTask) {
+        // status code 400: bad request
+        return res.status(400).json({
+            status: "fail",
+            message: "No task object with ID " + id + " is found to delete",
+        });
+    }
+
+    // get the index of the task to be deleted
+    const index = tasks.indexOf(deleteTask);
+
+    // removes the task from the array, deleting exactly one element
+    tasks.splice(index, 1);
+
+    // status code 200: OK
+    res.status(200).json({ status: "success" });
+});
 
 // Start server
 const PORT = 3000;

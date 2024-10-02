@@ -74,7 +74,7 @@ function Todo() {
         if (newTask.trim() !== "") {
             try {
                 const response = await fetch(
-                    "http://localhost:3000/api/tasks",
+                    "http://localhost:3000/api/addTask",
                     {
                         method: "POST",
                         headers: {
