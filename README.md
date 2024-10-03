@@ -2,7 +2,7 @@
 
 A simple TODO list app built with **Node.js** (server) and **React** (client), designed to help with managing tasks efficiently.
 
-# Installation
+## Installation
 
 ### 1. Clone the repository
 ``` bash
@@ -37,3 +37,6 @@ npm start
 ```
 
 The app should now be running at `http://localhost:3000`
+
+## Contribution
+Contributions are welcome! Please open an issue or submit a pull request.
