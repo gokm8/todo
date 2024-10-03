@@ -200,7 +200,6 @@ function Todo() {
             component="section"
             sx={{
                 p: 2,
-                m: 2,
                 mt: 8,
                 border: "2px solid grey ",
                 borderColor: "#27272a",
@@ -248,7 +247,7 @@ function Todo() {
                         variant="filled"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
-                        sx={{ backgroundColor: "white.dark" }}
+                        sx={{ backgroundColor: "white.dark", width: "85%" }}
                         inputProps={{ maxLength: 70 }} // limit on characters
                     />
                     {/* button for ADD task */}

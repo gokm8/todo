@@ -9,7 +9,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // array of objects
-const tasks = [{ id: 1, task: "Your first task", isComplete: false }];
+const tasks = [
+    { id: 1, task: "This is your first task", isComplete: true },
+    { id: 2, task: "This is your second task", isComplete: false },
+];
 
 // GET: fetch all tasks
 app.get("/api/tasks", (req, res) => {
