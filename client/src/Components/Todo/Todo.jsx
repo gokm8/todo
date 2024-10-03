@@ -58,7 +58,7 @@ function Todo() {
                             edge="end"
                             aria-label="delete"
                             onClick={() => deleteTask(t.id)}>
-                            <CloseIcon />
+                            <CloseIcon sx={{ color: "#ffffff" }} />
                         </IconButton>
                     }
                     disablePadding>
@@ -74,12 +74,28 @@ function Todo() {
                                 disableRipple
                                 inputProps={{ "aria-labelledby": labelId }}
                                 onClick={() => updateTask(t.id)}
+                                sx={{
+                                    color: t.isComplete ? "#00ff00" : "#ffffff", // green when complete, otherwise white
+                                    "&.Mui-checked": {
+                                        color: "#00ff00", // color when complete
+                                    },
+                                }}
                             />
                         </ListItemIcon>
                         <ListItemText
                             id={labelId}
                             primary={t.task}
                             className={t.isComplete ? "completed" : ""}
+                            sx={{ color: "white.dark" }}
+                            primaryTypographyProps={{
+                                sx: {
+                                    color: "white",
+                                    fontSize: "1rem",
+                                    fontWeight: "bold",
+                                    fontFamily:
+                                        '"Roboto", "Helvetica", "Arial", sans-serif',
+                                },
+                            }}
                         />
                     </ListItemButton>
                 </ListItem>
@@ -186,26 +202,36 @@ function Todo() {
                 p: 2,
                 m: 2,
                 mt: 8,
-                border: "1px solid grey",
-                bgcolor: "#d4cfcf",
+                border: "2px solid grey ",
+                borderColor: "#27272a",
+                borderRadius: "10px",
             }}>
             {/* H1 title */}
             <Typography
-                variant="h4"
+                variant="h1"
                 component="h1"
-                sx={{ fontWeight: "bold" }}
+                sx={{
+                    fontWeight: "bold",
+                    color: "white.light",
+                    textAlign: "center",
+                }}
                 gutterBottom>
-                // TODO
+                // TODO's
             </Typography>
+            <hr />
 
             {/* H2 subtitle */}
-            <Typography
-                variant="h6"
+            {/* <Typography
+                variant="h2"
                 component="h2"
-                sx={{ fontWeight: "bold" }}
+                sx={{
+                    fontWeight: "bold",
+                    textDecoration: "underline",
+                    color: "white.main",
+                }}
                 gutterBottom>
-                Tasks:
-            </Typography>
+                Tasks
+            </Typography> */}
 
             {/* TODO list */}
             <Box className="todo__list">
@@ -213,7 +239,7 @@ function Todo() {
             </Box>
 
             {/* add new task */}
-            <Box className="todo__add-task">
+            <Box className="todo__add-task" sx={{ mt: "1rem" }}>
                 <Stack direction="row" spacing={2}>
                     {/* textfield to enter task */}
                     <TextField
@@ -222,14 +248,18 @@ function Todo() {
                         variant="filled"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
-                        sx={{ backgroundColor: "#f0f0f0" }}
+                        sx={{ backgroundColor: "white.dark" }}
                     />
 
                     {/* button for ADD task */}
                     <Button
                         variant="contained"
                         endIcon={<AddIcon />}
-                        onClick={addTask}>
+                        onClick={addTask}
+                        sx={{
+                            color: "black",
+                            backgroundColor: "white.dark",
+                        }}>
                         ADD
                     </Button>
                 </Stack>

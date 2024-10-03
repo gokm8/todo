@@ -1,4 +1,17 @@
 .completed {
-    text-decoration: line-through;
-    color: gray;
+    position: relative;
+    /* color: #f9f9f9; */
+    color: grey;
+}
+
+.completed::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50%;
+    height: 3px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transform: translateY(50%);
 }
