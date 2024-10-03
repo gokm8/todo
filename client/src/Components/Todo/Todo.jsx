@@ -249,8 +249,8 @@ function Todo() {
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
                         sx={{ backgroundColor: "white.dark" }}
+                        inputProps={{ maxLength: 70 }} // limit on characters
                     />
-
                     {/* button for ADD task */}
                     <Button
                         variant="contained"
