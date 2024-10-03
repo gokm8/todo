@@ -19,7 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "./Todo.css";
 
 function Todo() {
-    const API_URL = "http://localhost:3000/api/tasks";
+    const API_URL = "http://localhost:3000/api";
 
     const [task, setTask] = useState([]);
     const [newTask, setNewTask] = useState("");
@@ -27,7 +27,7 @@ function Todo() {
 
     // fetch todos from API
     useEffect(() => {
-        fetch(API_URL)
+        fetch(`${API_URL}/tasks`)
             .then((response) => response.json())
             .then((task) => setTask(task));
     }, []);
@@ -107,16 +107,13 @@ function Todo() {
     const addTask = async () => {
         if (newTask.trim() !== "") {
             try {
-                const response = await fetch(
-                    "http://localhost:3000/api/addTask",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ task: newTask }), // only post task as input
-                    }
-                );
+                const response = await fetch(`${API_URL}/addTask`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ task: newTask }), // only post task as input
+                });
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -141,18 +138,15 @@ function Todo() {
         const taskToUpdate = task.find((t) => t.id === id); // find the task to update
 
         try {
-            const response = await fetch(
-                `http://localhost:3000/api/updateTask/${id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        isComplete: !taskToUpdate.isComplete, // flip the isComplete value
-                    }),
-                }
-            );
+            const response = await fetch(`${API_URL}/updateTask/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    isComplete: !taskToUpdate.isComplete, // flip the isComplete value
+                }),
+            });
 
             if (!response.ok) {
                 throw new Error("Failed to update task");
@@ -171,15 +165,12 @@ function Todo() {
     const deleteTask = async (id) => {
         try {
             // DELETE request to the server with the specific task ID
-            const response = await fetch(
-                `http://localhost:3000/api/deleteTask/${id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
+            const response = await fetch(`${API_URL}/deleteTask/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
