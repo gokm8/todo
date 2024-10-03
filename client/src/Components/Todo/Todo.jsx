@@ -49,10 +49,14 @@ function Todo() {
         return task.map((t, index) => {
             const labelId = `checkbox-list-label-${index}`;
             return (
+                // CloseIcon to delete a task
                 <ListItem
                     key={index}
                     secondaryAction={
-                        <IconButton edge="end" aria-label="comments">
+                        <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => deleteTask(t.id)}>
                             <CloseIcon />
                         </IconButton>
                     }
@@ -77,7 +81,7 @@ function Todo() {
         });
     };
 
-    // add a new todo
+    // add a new task
     const addTask = async () => {
         if (newTask.trim() !== "") {
             try {
@@ -96,9 +100,11 @@ function Todo() {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                const data = await response.json(); // get the new task from the server
+                // logging the added task
+                const data = await response.json();
+                console.log("Task added: ", data);
 
-                // update the task-list with the new task (inclusive id and isComplete)lete
+                // update the task-list with the new task (inclusive id and isComplete)
                 setTask([...task, data]);
 
                 // restore input field after insert
@@ -109,7 +115,32 @@ function Todo() {
         }
     };
 
-    const deleteTask = async () => {};
+    const deleteTask = async (id) => {
+        try {
+            // DELETE request to the server with the specific task ID
+            const response = await fetch(
+                `http://localhost:3000/api/deleteTask/${id}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Task deleted: ", data);
+
+            // update the task list by filtering out the deleted task
+            setTask(task.filter((task) => task.id !== id)); // remove the task with the matching ID
+        } catch (error) {
+            console.log("Error: ", error);
+        }
+    };
 
     return (
         <Box
@@ -162,14 +193,6 @@ function Todo() {
                         endIcon={<AddIcon />}
                         onClick={addTask}>
                         ADD
-                    </Button>
-
-                    {/* button for DELETE task */}
-                    <Button
-                        variant="contained"
-                        endIcon={<DeleteIcon />}
-                        onClick={deleteTask}>
-                        DELETE
                     </Button>
                 </Stack>
             </Box>

@@ -39,7 +39,7 @@ app.post("/api/addTask", (req, res) => {
 // PUT: update a task (marks as complete/incomplete)
 
 // DELETE: remove a task
-app.delete("/api/tasks/:id", (req, res) => {
+app.delete("/api/deleteTask/:id", (req, res) => {
     // logging ID to be deleted
     console.log(`ID to delete: ${req.params.id}`);
 
