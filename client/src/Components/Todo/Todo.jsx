@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import CancelIcon from "@mui/icons-material/Cancel";
 import CloseIcon from "@mui/icons-material/Close";
+import "./Todo.css";
 
 function Todo() {
     const API_URL = "http://localhost:3000/api/tasks";
@@ -68,13 +69,18 @@ function Todo() {
                         <ListItemIcon>
                             <Checkbox
                                 edge="start"
-                                checked={checked.includes(index)}
+                                checked={t.isComplete}
                                 tabIndex={-1}
                                 disableRipple
                                 inputProps={{ "aria-labelledby": labelId }}
+                                onClick={() => updateTask(t.id)}
                             />
                         </ListItemIcon>
-                        <ListItemText id={labelId} primary={t.task} />
+                        <ListItemText
+                            id={labelId}
+                            primary={t.task}
+                            className={t.isComplete ? "completed" : ""}
+                        />
                     </ListItemButton>
                 </ListItem>
             );
@@ -110,8 +116,39 @@ function Todo() {
                 // restore input field after insert
                 setNewTask("");
             } catch (error) {
-                console.error("Error adding task:", error);
+                console.error("Error adding task: ", error);
             }
+        }
+    };
+
+    const updateTask = async (id) => {
+        const taskToUpdate = task.find((t) => t.id === id); // find the task to update
+
+        try {
+            const response = await fetch(
+                `http://localhost:3000/api/updateTask/${id}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        isComplete: !taskToUpdate.isComplete, // flip the isComplete value
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to update task");
+            }
+
+            const updatedTask = await response.json();
+            console.log("Task updated to: ", updatedTask);
+
+            // update the task state with the new updated task
+            setTask(task.map((t) => (t.id === id ? updatedTask.data : t))); // update the state with the updated task
+        } catch (error) {
+            console.log("Error updating task: ", error);
         }
     };
 
@@ -185,6 +222,7 @@ function Todo() {
                         variant="filled"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
+                        sx={{ backgroundColor: "#f0f0f0" }}
                     />
 
                     {/* button for ADD task */}
