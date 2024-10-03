@@ -11,10 +11,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
-import CommentIcon from "@mui/icons-material/Comment";
 import { Stack } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import CancelIcon from "@mui/icons-material/Cancel";
+import CloseIcon from "@mui/icons-material/Close";
 
 function Todo() {
     const API_URL = "http://localhost:3000/api/tasks";
@@ -48,7 +49,14 @@ function Todo() {
         return task.map((t, index) => {
             const labelId = `checkbox-list-label-${index}`;
             return (
-                <ListItem key={index} disablePadding>
+                <ListItem
+                    key={index}
+                    secondaryAction={
+                        <IconButton edge="end" aria-label="comments">
+                            <CloseIcon />
+                        </IconButton>
+                    }
+                    disablePadding>
                     <ListItemButton
                         role={undefined}
                         onClick={handleToggle(index)}
