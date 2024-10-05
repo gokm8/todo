@@ -75,7 +75,7 @@ function Todo() {
                                 inputProps={{ "aria-labelledby": labelId }}
                                 onClick={() => updateTask(t.id)}
                                 sx={{
-                                    color: t.isComplete ? "#00ff00" : "#ffffff", // green when complete, otherwise white
+                                    color: t.isComplete ? "#00ff00" : "#8B0000", // green when complete, otherwise white
                                     "&.Mui-checked": {
                                         color: "#00ff00", // color when complete
                                     },
@@ -211,26 +211,26 @@ function Todo() {
             <hr />
 
             {/* H2 subtitle */}
-            {/* <Typography
-                variant="h2"
+            <Typography
+                variant="h4"
                 component="h2"
                 sx={{
                     fontWeight: "bold",
-                    textDecoration: "underline",
+                    textDecoration: "",
                     color: "white.main",
                 }}
                 gutterBottom>
-                Tasks
-            </Typography> */}
+                Your daily tasks:
+            </Typography>
 
             {/* TODO list */}
             {/* add new task */}
-            <Box className="todo__add-task" sx={{ mt: "2rem", mb: "1rem" }}>
+            <Box className="todo__add-task" sx={{ mt: "1rem", mb: "1rem" }}>
                 <Stack direction="row" spacing={2}>
                     {/* textfield to enter task */}
                     <TextField
                         id="filled-basic"
-                        label="Add a new task"
+                        label="Enter a task"
                         variant="filled"
                         value={newTask}
                         onChange={(e) => setNewTask(e.target.value)}
