@@ -224,12 +224,8 @@ function Todo() {
             </Typography> */}
 
             {/* TODO list */}
-            <Box className="todo__list">
-                <List>{listTasks()}</List>
-            </Box>
-
             {/* add new task */}
-            <Box className="todo__add-task" sx={{ mt: "1rem" }}>
+            <Box className="todo__add-task" sx={{ mt: "2rem", mb: "1rem" }}>
                 <Stack direction="row" spacing={2}>
                     {/* textfield to enter task */}
                     <TextField
@@ -253,6 +249,9 @@ function Todo() {
                         ADD
                     </Button>
                 </Stack>
+            </Box>
+            <Box className="todo__list">
+                <List>{listTasks()}</List>
             </Box>
         </Box>
     );
