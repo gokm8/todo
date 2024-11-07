@@ -1,6 +1,12 @@
-# TODO list application 📝
+# TODO List Application 📝
 
-A simple TODO list app built with **Node.js** (server) and **React** (client), designed to help with managing tasks efficiently.
+A simple TODO list app built with **Node.js** (server) and **React** (client), designed to help manage tasks efficiently.
+
+## Features
+
+- Add, update, and delete tasks.
+- Mark tasks as complete or incomplete.
+- Responsive design using Material-UI.
 
 ## Installation
 
@@ -36,7 +42,15 @@ cd client
 npm start
 ```
 
-The app should now be running at `http://localhost:3000`
+The app should now be running at `http://localhost:3000`.
+
+## API Endpoints
+
+- **GET** `/api/tasks`: Fetch all tasks.
+- **POST** `/api/addTask`: Add a new task.
+- **PUT** `/api/updateTask/:id`: Update a task's completion status.
+- **DELETE** `/api/deleteTask/:id`: Remove a task.
 
 ## Contribution
+
 Contributions are welcome! Please open an issue or submit a pull request.
